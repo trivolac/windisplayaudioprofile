@@ -23,12 +23,27 @@ namespace Windows_Display_Audio_Profile
         public MainWindow()
         {
             InitializeComponent();
-            pnlMainGrid.MouseUp += new MouseButtonEventHandler(pnlMainGrid_MouseUp);
+            checkLbProfileListOnInit();
         }
 
-        private void pnlMainGrid_MouseUp(object sender, MouseButtonEventArgs e)
+        private void checkLbProfileListOnInit()
         {
-            MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
+            if (lbProfile.Items.Count == 0)
+            {
+                lbProfile.Items.Add(pnlMain.FindResource("noProfileCreated").ToString());
+                lbProfile.IsEnabled = false;
+            }
+        }
+
+        private void btnCreateProfile_Click(object sender, RoutedEventArgs e)
+        {
+            CreateProfileWindow createProfileWindow = new CreateProfileWindow();
+            createProfileWindow.Show();
+        }
+
+        private void btnLoadProfile_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Btn load profile clicked");
         }
     }
 }
