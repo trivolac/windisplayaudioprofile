@@ -6,13 +6,32 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B6793D93-C02E-4BCA-AAF2-87692DAC0873}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Windows_Display_Audio_Profile</RootNamespace>
+    <RootNamespace>WindowsDisplayAudioProfile</RootNamespace>
     <AssemblyName>Windows Display Audio Profile</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>https://github.com/trivolac/windisplayaudioprofile/</InstallUrl>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,9 +52,28 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E43D9190C9E72566D95B197EA69AE12A063199D2</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>certificate.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>signingkey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,6 +92,50 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AudioApi\AudioEndpointVolume.cs" />
+    <Compile Include="AudioApi\AudioEndpointVolumeCallback.cs" />
+    <Compile Include="AudioApi\AudioEndpointVolumeNotificationDelegate.cs" />
+    <Compile Include="AudioApi\AudioMeterInformation.cs" />
+    <Compile Include="AudioApi\AudioMeterInformationChannels.cs" />
+    <Compile Include="AudioApi\AudioSessionControl.cs" />
+    <Compile Include="AudioApi\AudioSessionDisconnectReason.cs" />
+    <Compile Include="AudioApi\AudioSessionManager.cs" />
+    <Compile Include="AudioApi\AudioSessionState.cs" />
+    <Compile Include="AudioApi\AudioVolumeNotificationData.cs" />
+    <Compile Include="AudioApi\EDataFlow.cs" />
+    <Compile Include="AudioApi\EDeviceState.cs" />
+    <Compile Include="AudioApi\ERole.cs" />
+    <Compile Include="AudioApi\Interfaces\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
+    <Compile Include="AudioApi\Interfaces\Blob.cs" />
+    <Compile Include="AudioApi\Interfaces\CLSCTX.cs" />
+    <Compile Include="AudioApi\Interfaces\eStgmAccess.cs" />
+    <Compile Include="AudioApi\Interfaces\IAudioEndpointVolume.cs" />
+    <Compile Include="AudioApi\Interfaces\IAudioEndpointVolumeCallback.cs" />
+    <Compile Include="AudioApi\Interfaces\IAudioMeterInformation.cs" />
+    <Compile Include="AudioApi\Interfaces\IAudioSessionControl2.cs" />
+    <Compile Include="AudioApi\Interfaces\IAudioSessionEnumerator.cs" />
+    <Compile Include="AudioApi\Interfaces\IAudioSessionEvents.cs" />
+    <Compile Include="AudioApi\Interfaces\IAudioSessionManager2.cs" />
+    <Compile Include="AudioApi\Interfaces\IMMDevice.cs" />
+    <Compile Include="AudioApi\Interfaces\IMMDeviceCollection.cs" />
+    <Compile Include="AudioApi\Interfaces\IMMDeviceEnumerator.cs" />
+    <Compile Include="AudioApi\Interfaces\IPolicyConfig.cs" />
+    <Compile Include="AudioApi\Interfaces\IPropertyStore.cs" />
+    <Compile Include="AudioApi\MMDevice.cs" />
+    <Compile Include="AudioApi\MMDeviceCollection.cs" />
+    <Compile Include="AudioApi\MMDeviceEnumerator.cs" />
+    <Compile Include="AudioApi\PKEY.cs" />
+    <Compile Include="AudioApi\PolicyConfigClient.cs" />
+    <Compile Include="AudioApi\PropertyKey.cs" />
+    <Compile Include="AudioApi\PropertyStore.cs" />
+    <Compile Include="AudioApi\PropertyStoreProperty.cs" />
+    <Compile Include="AudioApi\PropVariant.cs" />
+    <Compile Include="AudioApi\SessionCollection.cs" />
+    <Compile Include="Entities\Profile.cs" />
+    <Compile Include="Entities\ProfileCollection.cs" />
+    <Compile Include="Managers\AudioDevicesManager.cs" />
+    <Compile Include="Managers\DisplayDevicesManager.cs" />
+    <Compile Include="Managers\ProfileManager.cs" />
     <Compile Include="CreateProfile.xaml.cs">
       <DependentUpon>CreateProfile.xaml</DependentUpon>
     </Compile>
@@ -92,13 +174,27 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="certificate.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="signingkey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
